@@ -1,0 +1,428 @@
+/* ==========================================================================
+   To Do List Life Dashboard — styles.css
+   All visual styling: layout, theming, widget styles, utility classes
+   Requirements: 2.7, 5.2, 6.1, 9.1, 9.2, 9.5, 9.6
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   CSS Custom Properties — centralised theming
+   -------------------------------------------------------------------------- */
+:root {
+  /* Colours */
+  --colour-bg:            #3e77ce;
+  --colour-surface:       #8baaee;
+  --colour-surface-alt:   #aed2f3;
+  --colour-border:        #ffffff;
+  --colour-text-primary:  #f8f8f8;
+  --colour-text-secondary:#224072;
+  --colour-text-muted:    #233c83;
+  --colour-accent:        #3354e9;
+  --colour-accent-hover:  #3a57e8;
+  --colour-accent-focus:  rgba(79, 110, 247, 0.25);
+  --colour-danger:        #cf0c0c;
+  --colour-danger-hover:  #c53030;
+  --colour-warning-bg:    #f1efe8;
+  --colour-warning-border:#ffc107;
+  --colour-warning-text:  #856404;
+  --colour-success:       #38a169;
+  --colour-completed-text:#a0aab4;
+
+  /* Spacing */
+  --space-xs:   0.25rem;
+  --space-sm:   0.5rem;
+  --space-md:   1rem;
+  --space-lg:   1.5rem;
+  --space-xl:   2rem;
+
+  /* Typography */
+  --font-sans:  system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono:  "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  --font-size-base: 1rem;
+  --font-size-sm:   0.875rem;
+  --font-size-xs:   0.75rem;
+  --font-size-lg:   1.125rem;
+  --font-size-xl:   1.5rem;
+  --font-size-2xl:  2rem;
+  --font-size-3xl:  3rem;
+
+  /* Borders & Shadows */
+  --radius-sm:  0.25rem;
+  --radius-md:  0.5rem;
+  --radius-lg:  0.75rem;
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md:  0 4px 12px rgba(0, 0, 0, 0.08), 0 2px 4px rgba(0, 0, 0, 0.04);
+  --shadow-lg:  0 8px 24px rgba(0, 0, 0, 0.10), 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+/* --------------------------------------------------------------------------
+   Reset & Base
+   -------------------------------------------------------------------------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: 1.6;
+  color: var(--colour-text-primary);
+  background-color: var(--colour-bg);
+  min-height: 100vh;
+}
+
+/* --------------------------------------------------------------------------
+   Utility Classes
+   -------------------------------------------------------------------------- */
+
+/* .hidden — hides any element from layout and assistive tech */
+.hidden {
+  display: none !important;
+}
+
+/* .error — inline validation message */
+.error {
+  display: block;
+  color: var(--colour-danger);
+  font-size: var(--font-size-xs);
+  margin-top: var(--space-xs);
+  font-weight: 500;
+}
+
+/* --------------------------------------------------------------------------
+   Storage Error Banner — Requirement 8.3, 9.2
+   -------------------------------------------------------------------------- */
+.storage-error {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--colour-warning-bg);
+  border-bottom: 2px solid var(--colour-warning-border);
+  color: var(--colour-warning-text);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  text-align: center;
+}
+
+/* --------------------------------------------------------------------------
+   8.1 — Dashboard Grid Layout
+   Requirements: 9.1, 9.6
+   -------------------------------------------------------------------------- */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-lg);
+  padding: var(--space-lg);
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* --------------------------------------------------------------------------
+   8.2 — Widget Cards
+   Requirements: 9.2, 9.5
+   -------------------------------------------------------------------------- */
+.widget {
+  background-color: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+/* Widget titles */
+.widget h2 {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--colour-text-primary);
+  letter-spacing: -0.01em;
+  border-bottom: 1px solid var(--colour-border);
+  padding-bottom: var(--space-sm);
+}
+
+/* --------------------------------------------------------------------------
+   Greeting Widget
+   -------------------------------------------------------------------------- */
+#greeting-widget {
+  justify-content: center;
+  text-align: center;
+}
+
+#greeting-text {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--colour-text-primary);
+}
+
+#time-display {
+  font-size: var(--font-size-3xl);
+  font-family: var(--font-mono);
+  font-weight: 700;
+  color: var(--colour-accent);
+  line-height: 1.1;
+}
+
+#date-display {
+  font-size: var(--font-size-sm);
+  color: var(--colour-text-secondary);
+}
+
+/* --------------------------------------------------------------------------
+   8.4 — Focus Timer
+   Requirements: 2.7
+   -------------------------------------------------------------------------- */
+#focus-timer {
+  text-align: center;
+}
+
+/* Large monospace countdown display */
+#timer-display {
+  font-family: var(--font-mono);
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  color: var(--colour-text-primary);
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+/* Timer ended message */
+#timer-ended-msg {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--colour-success);
+}
+
+/* Timer controls button group */
+.timer-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+/* --------------------------------------------------------------------------
+   8.2 — Buttons (shared styles)
+   Requirements: 9.2, 9.5
+   -------------------------------------------------------------------------- */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xs) var(--space-md);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  line-height: 1.4;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 0.15s ease, border-color 0.15s ease,
+              box-shadow 0.15s ease, opacity 0.15s ease;
+  white-space: nowrap;
+
+  /* Default: primary accent style */
+  background-color: var(--colour-accent);
+  color: #ffffff;
+}
+
+button:hover:not(:disabled) {
+  background-color: var(--colour-accent-hover);
+}
+
+button:focus-visible {
+  outline: 3px solid var(--colour-accent-focus);
+  outline-offset: 2px;
+}
+
+button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Secondary / action buttons (edit, cancel) */
+.task-edit-btn,
+.task-cancel-btn,
+.task-confirm-btn {
+  background-color: var(--colour-surface-alt);
+  color: var(--colour-text-primary);
+  border-color: var(--colour-border);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
+.task-edit-btn:hover:not(:disabled),
+.task-cancel-btn:hover:not(:disabled),
+.task-confirm-btn:hover:not(:disabled) {
+  background-color: var(--colour-border);
+}
+
+/* Danger / delete buttons */
+.task-delete-btn,
+.link-delete-btn {
+  background-color: transparent;
+  color: var(--colour-danger);
+  border-color: transparent;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-xs);
+}
+
+.task-delete-btn:hover:not(:disabled),
+.link-delete-btn:hover:not(:disabled) {
+  background-color: #fff5f5;
+  border-color: var(--colour-danger);
+}
+
+/* --------------------------------------------------------------------------
+   Forms & Inputs
+   -------------------------------------------------------------------------- */
+form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-items: flex-start;
+}
+
+input[type="text"],
+input[type="url"] {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--colour-text-primary);
+  background-color: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  line-height: 1.6;
+}
+
+input[type="text"]:focus,
+input[type="url"]:focus {
+  outline: none;
+  border-color: var(--colour-accent);
+  box-shadow: 0 0 0 3px var(--colour-accent-focus);
+}
+
+input[type="text"]::placeholder,
+input[type="url"]::placeholder {
+  color: var(--colour-text-muted);
+}
+
+/* Inline edit input inside task list items */
+.task-edit-input {
+  flex: 1 1 0;
+  min-width: 0;
+  padding: var(--space-xs) var(--space-sm);
+  font-family: var(--font-sans);
+  font-size: var(--font-size-sm);
+  color: var(--colour-text-primary);
+  background-color: var(--colour-surface);
+  border: 1px solid var(--colour-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: 0 0 0 3px var(--colour-accent-focus);
+}
+
+/* --------------------------------------------------------------------------
+   8.3 — Task List
+   Requirements: 5.2
+   -------------------------------------------------------------------------- */
+#task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin: 0;
+  padding: 0;
+}
+
+/* Each task row */
+#task-list li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-xs) var(--space-sm);
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  transition: background-color 0.1s ease;
+}
+
+#task-list li:hover {
+  background-color: var(--colour-surface-alt);
+  border-color: var(--colour-border);
+}
+
+/* Task text span */
+.task-text {
+  flex: 1 1 0;
+  min-width: 0;
+  font-size: var(--font-size-sm);
+  word-break: break-word;
+}
+
+/* Completed task — strikethrough and muted colour */
+#task-list li.completed .task-text {
+  text-decoration: line-through;
+  color: var(--colour-completed-text);
+  opacity: 0.75;
+}
+
+/* Checkbox */
+#task-list input[type="checkbox"] {
+  flex-shrink: 0;
+  width: 1rem;
+  height: 1rem;
+  accent-color: var(--colour-accent);
+  cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   8.4 — Quick Links Panel
+   Requirements: 6.1
+   -------------------------------------------------------------------------- */
+#links-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  align-content: flex-start;
+}
+
+/* Each link item container */
+.link-item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+/* Link open button */
+.link-open-btn {
+  background-color: var(--colour-surface-alt);
+  color: var(--colour-accent);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.link-open-btn:hover:not(:disabled) {
+  background-color: var(--colour-accent);
+  color: #ffffff;
+  border-color: var(--colour-accent);
+}

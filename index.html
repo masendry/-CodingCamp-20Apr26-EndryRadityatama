@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Life Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <div id="storage-error" class="storage-error hidden" role="alert"></div>
+
+  <main class="dashboard">
+    <!-- Widget 1: Greeting -->
+    <section id="greeting-widget" class="widget">
+      <p id="greeting-text"></p>
+      <p id="time-display"></p>
+      <p id="date-display"></p>
+    </section>
+
+    <!-- Widget 2: Focus Timer -->
+    <section id="focus-timer" class="widget">
+      <h2>Focus Timer</h2>
+      <p id="timer-display">25:00</p>
+      <div class="timer-controls">
+        <button id="timer-start">Start</button>
+        <button id="timer-stop" disabled>Stop</button>
+        <button id="timer-reset" disabled>Reset</button>
+      </div>
+      <p id="timer-ended-msg" class="hidden">Session complete!</p>
+    </section>
+
+    <!-- Widget 3: Task Manager -->
+    <section id="task-manager" class="widget">
+      <h2>To-Do List</h2>
+      <form id="task-form">
+        <input id="task-input" type="text" placeholder="Add a task…" autocomplete="off">
+        <button type="submit">Add</button>
+        <span id="task-error" class="error hidden"></span>
+      </form>
+      <ul id="task-list"></ul>
+    </section>
+
+    <!-- Widget 4: Quick Links -->
+    <section id="quick-links" class="widget">
+      <h2>Quick Links</h2>
+      <form id="link-form">
+        <input id="link-label" type="text" placeholder="Label">
+        <input id="link-url" type="url" placeholder="https://…">
+        <button type="submit">Add</button>
+        <span id="link-error" class="error hidden"></span>
+      </form>
+      <div id="links-panel"></div>
+    </section>
+  </main>
+
+  <script src="js/app.js"></script>
+</body>
+</html>
